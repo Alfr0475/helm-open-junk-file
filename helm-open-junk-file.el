@@ -43,15 +43,12 @@
   :group 'helm-open-junk-file)
 
 
-(defclass helm-source-open-junk-file
-  ((candidates :initform (lambda()
-                           (reverse (eshell-extended-glob (concat
-                                                           (file-name-as-directory helm-open-junk-file-directory)
-                                                           "*")))))))
-
-(setq helm-source-open-junk-file
-      (helm-make-source "Junk Files" 'helm-source-open-junk-file
-        :fuzzy-match t))
+(defvar helm-source-open-junk-file
+      '((name . "Junk Files")
+        (candidates :initform (lambda()
+                                (reverse (eshell-extended-glob (concat
+                                                                (file-name-as-directory helm-open-junk-file-directory)
+                                                                "*")))))))
 
 ;;;###autoload
 (defun helm-open-junk-file ()
