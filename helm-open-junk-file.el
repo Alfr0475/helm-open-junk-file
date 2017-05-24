@@ -42,17 +42,21 @@
   :type 'string
   :group 'helm-open-junk-file)
 
+(defvar helm-open-junk-file--action
+  '(("Open File" . find-file)
+    ("Open File other window" . find-file-other-window)
+    ("Open File other frame" . find-file-other-frame)))
 
 (defvar helm-source-open-junk-file
-      '((name . "Junk Files")
-        (candidates . (lambda()
-                        (reverse (eshell-extended-glob
-                                  (concat (file-name-as-directory helm-open-junk-file-directory) "*")))))))
+  (helm-build-in-buffer-source "Junk Files"
+    :candidates (reverse (eshell-extended-glob
+                          (concat (file-name-as-directory helm-open-junk-file-directory) "*")))
+    :action helm-open-junk-file--action))
 
 ;;;###autoload
 (defun helm-open-junk-file ()
   (interactive)
-  (helm :sources 'helm-source-open-junk-file
+  (helm :sources '(helm-source-open-junk-file)
         :buffer "*helm for junk files*"))
 
 (provide 'helm-open-junk-file)
