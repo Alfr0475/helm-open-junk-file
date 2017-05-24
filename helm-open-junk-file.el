@@ -45,10 +45,9 @@
 
 (defvar helm-source-open-junk-file
       '((name . "Junk Files")
-        (candidates :initform (lambda()
-                                (reverse (eshell-extended-glob (concat
-                                                                (file-name-as-directory helm-open-junk-file-directory)
-                                                                "*")))))))
+        (candidates . (lambda()
+                        (reverse (eshell-extended-glob
+                                  (concat (file-name-as-directory helm-open-junk-file-directory) "*")))))))
 
 ;;;###autoload
 (defun helm-open-junk-file ()
